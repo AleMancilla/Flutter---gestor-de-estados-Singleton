@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestor_singleton/models/usuario.dart';
 import 'package:gestor_singleton/services/usuario_service.dart';
 
 class Page1 extends StatelessWidget {
@@ -10,9 +11,15 @@ class Page1 extends StatelessWidget {
       appBar: AppBar(
         title: Text('Pagina 1'),
       ),
-      body: usuarioService.existUsuario
-          ? UserInformation()
-          : Text('No existe usuario'),
+      body: StreamBuilder(
+        stream: usuarioService.usuarioStream,
+        // initialData: initialData,
+        builder: (BuildContext context, AsyncSnapshot<Usuario> snapshot) {
+          return snapshot.hasData
+              ? UserInformation()
+              : Text('No existe usuario');
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, 'page2');
