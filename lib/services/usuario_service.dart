@@ -5,8 +5,8 @@ import 'package:gestor_singleton/models/usuario.dart';
 class _UsuarioService {
   Usuario? _usuario;
 
-  StreamController<Usuario> _usuarioStreamController =
-      StreamController<Usuario>();
+  final StreamController<Usuario> _usuarioStreamController =
+      StreamController<Usuario>.broadcast();
 
   Usuario? get usuario => _usuario;
   bool get existUsuario => (usuario != null);
